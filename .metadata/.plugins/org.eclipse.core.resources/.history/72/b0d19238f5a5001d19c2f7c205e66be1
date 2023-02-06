@@ -1,6 +1,7 @@
 package p1289;
 
 import java.util.Scanner;
+import java.io.FileInputStream;
 
 public class p1289 {
 	
@@ -23,12 +24,11 @@ public class p1289 {
 			char data[] = sc.nextLine().toCharArray();
 			
 			int count = data[0] - '0';
-			System.out.println("#" + test_case + " " + (count + recall(data,1)));
-			/*for(int i = 1; i < data.length; i++) {
+			for(int i = 1; i < data.length; i++) {
 				if(data[i-1]!=data[i]) count++;
 			}
 			System.out.println("#" + test_case + " " + count);
-			*/
+			System.out.println("#" + test_case + " " + recall(data,1));
 		}
 	}
 }
