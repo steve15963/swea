@@ -48,6 +48,7 @@ public class p1954 {
 				sb.append("\n");
 			}
 		}
+		Chann
 		System.out.println(sb.toString());
 	}
 }
