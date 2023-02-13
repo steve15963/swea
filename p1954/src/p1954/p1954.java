@@ -20,13 +20,13 @@ public class p1954 {
 			int dy[] = {0,1,0,-1};
 			int dx[] = {1,0,-1,0};
 			int mode = 0;
-			// N^2만큼 채운다.
+			// N^2留뚰겮 梨꾩슫�떎.
 			while(number <= MAPSize) {
-				// 숫자를 넣고
+				// �닽�옄瑜� �꽔怨�
 				MAP[i][j] = number++;
 				int nextI = i + dy[mode];
 				int nextJ = j + dx[mode];
-				//다음 주소가 유효한지?.. 유효하지 않다면 모드를 변경한다.
+				//�떎�쓬 二쇱냼媛� �쑀�슚�븳吏�?.. �쑀�슚�븯吏� �븡�떎硫� 紐⑤뱶瑜� 蹂�寃쏀븳�떎.
 				if(
 					nextI < 0  ||
 					nextI >= N ||
@@ -34,7 +34,7 @@ public class p1954 {
 					nextJ >= N
 				)
 					mode = ( mode + 1 ) % 4;
-				//주소도 유효하고 다음 주소의 값이 0이 아니라면 모드를 변경한다.
+				//二쇱냼�룄 �쑀�슚�븯怨� �떎�쓬 二쇱냼�쓽 媛믪씠 0�씠 �븘�땲�씪硫� 紐⑤뱶瑜� 蹂�寃쏀븳�떎.
 				else if(MAP[nextI][nextJ] != 0)
 					mode = ( mode + 1 ) % 4;
 				i += dy[mode];
@@ -48,7 +48,6 @@ public class p1954 {
 				sb.append("\n");
 			}
 		}
-		Chann
 		System.out.println(sb.toString());
 	}
 }
