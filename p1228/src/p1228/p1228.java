@@ -28,7 +28,7 @@ public class p1228 {
 					"I"
 			);
 			//명령어 길이만큼 반복
-			for(int j = 0; j<command_length;j++) {
+			for(int j = 1; j<=command_length;j++) {
 				//명령어를 " "을 기준으로 나누고
 				StringTokenizer st2 = new StringTokenizer(
 						st.nextToken()
