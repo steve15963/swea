@@ -23,17 +23,25 @@ public class p3289 {
 		if(A == root[A]) return A;
 		return findSet(root[A]);
 	}
+	// 부모노드를 찾으면 경로 압축
+	static int findSet(int A,int rootB) {
+		int t = root[A];
+		root[A] = rootB;
+		if(A == root[t]) return A;
+		return findSet(t,rootB);
+	}
 	
-	// 합집합
-	static boolean union(int A, int B) {
+	
+	// 랭킹 합집합
+	static boolean rankUnion(int A, int B) {
 		int aRoot = findSet(A);
-		int bRoot = findSet(B);
+		int bRoot = findSet(B,aRoot);
 		// 같은 집합이면 취소
 		if(aRoot == bRoot) return false;
-		//랭크가 a가 크면  a집합에 b를 합병
+		//랭크가 a가 크면  a집합에 b집합을 합병
 		if (rank[aRoot] > rank[bRoot]) {
             root[bRoot] = aRoot;
-        //랭크가 b가 크면 b집합에 b를 합병 
+        //랭크가 b가 크면 b집합에 a집합을 합병 
         } else if (rank[aRoot] < rank[bRoot]) {
         	root[aRoot] = bRoot;
         //같다면 a집합에 b집합을 합볍하고 a집합 랭크 증가.
@@ -41,7 +49,13 @@ public class p3289 {
         	root[bRoot] = aRoot;
             rank[aRoot]++;
         }
-		//root[bRoot] = aRoot;
+		return true;
+	}
+	
+	// 패스 컴프레션 합집합
+	static boolean pathUnion(int A, int B) {
+		int aRoot = findSet(A);
+		findSet(B,aRoot);
 		return true;
 	}
 	
@@ -53,6 +67,7 @@ public class p3289 {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
+			// 그룹 생성
 			makeSet(N);
 			sb.append('#').append(TC).append(' ');
 			for(int i = 0; i < M; i++) {
@@ -60,8 +75,13 @@ public class p3289 {
 				int command = Integer.parseInt(st.nextToken());
 				int aIndex = Integer.parseInt(st.nextToken());
 				int bIndex = Integer.parseInt(st.nextToken());
-				if(command == 0)
-					union(aIndex, bIndex);
+				if(command == 0) {
+					
+					//두개 한번에 적용 방법은 생각중...
+					// 두개중 1개를 주석 해제하여 사용
+					//rankUnion(aIndex, bIndex);
+					pathUnion(aIndex, bIndex);
+				}
 				else {
 					int aRoot = findSet(aIndex);
 					int bRoot = findSet(bIndex);
