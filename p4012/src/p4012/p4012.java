@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class p4012 {
 	static int taste;
 	static boolean visit[];
 	static int map[][];
