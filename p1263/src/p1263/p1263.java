@@ -24,14 +24,11 @@ public class p1263 {
 		for(int TC = 1; TC <= T; TC++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken());
-			
-			
-			
+				
 			int distance[][] = new int[N][N];
-//			for(int i = 0 ; i < N;i++) {
-//				Arrays.fill(distance[i], INF);
-//			}
 			
+			
+			//인접리스트를 최적해 테이블로 사용.
 			for(int i = 0 ; i < N; i++) {
 				for(int j = 0; j < N; j++) {
 					distance[i][j] = Integer.parseInt(st.nextToken());
@@ -40,34 +37,18 @@ public class p1263 {
 					}
 				}
 			}
-			
-//			int size = N * N;
-//			ArrayList<Point> adjList[] = new ArrayList[N];
-//			for(int i = 0 ; i < N ; i++) {
-//				adjList[i] = new ArrayList<Point>();
-//			}
-//			
-//			for(int i = 0 ; i < size; i++) {
-//				int value = Integer.parseInt(st.nextToken());
-//				if(value != 0) {
-//					int from = i / N;
-//					int to = i % N;
-//					adjList[from].add(new Point(to, value));	
-//				}
-//			}
-			
 			//경유지
 			for(int k = 0; k < N; k++){
 				//출발지
-				for(int s = 0; s < N; s++) {
+				for(int start = 0; start < N; start++) {
 					// 경유지랑 출발지가 같으면 다음 출발지로.
-					if(s == k) continue;
+					if(start == k) continue;
 					// 도착지
-					for(int e = 0; e < N; e++) {
+					for(int end = 0; end < N; end++) {
 						//도착지가 출발지나 경유지랑 같으면 다음 도착지로.
-						if(s == e || k == e) continue;
-						if(distance[s][e] > distance[e][k] + distance[k][e]){
-							distance[s][e] = distance[s][k] + distance[k][e];
+						if(start == end || k == end) continue;
+						if(distance[start][end] > distance[start][k] + distance[k][end]){
+							distance[start][end] = distance[start][k] + distance[k][end];
 						}
 					}
 				}
