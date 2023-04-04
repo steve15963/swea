@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class p1486 {
+	static int min;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -22,14 +23,14 @@ public class p1486 {
 			for(int i = 0 ; i < N; i++) {
 				length[i] = Integer.parseInt(st.nextToken());
 			}
-			Integer min = new Integer(Integer.MAX_VALUE);
-			DFS(0,0,N,B,length,min);
+			min = Integer.MAX_VALUE;
+			DFS(0,0,N,B,length);
 			System.out.println(min);
 		}
 
 	}
 
-	private static void DFS(int cnt, int sum, int N, int B, int length[], Integer min) {
+	private static void DFS(int cnt, int sum, int N, int B, int length[]) {
 		if(cnt == N) {
 			return;
 		}
@@ -37,13 +38,13 @@ public class p1486 {
 		if(sum >= B) {
 			min = Math.min(min, sum);
 		}
-		else DFS(cnt+1, sum, N, B, length, min);
+		else DFS(cnt+1, sum, N, B, length);
 		
 		//cnt번째 인원이 들어온 경우
 		if(sum + length[cnt] >= B) {
 			min = Math.min(min, sum + length[cnt]);
 		}
-		else DFS(cnt+1, sum + length[cnt], N, B, length, min);
+		else DFS(cnt+1, sum + length[cnt], N, B, length);
 	}
 
 }
