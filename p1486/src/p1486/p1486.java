@@ -12,7 +12,7 @@ public class p1486 {
 		
 		int T = Integer.parseInt(br.readLine());
 		
-		for(int TC = 0 ; TC <= T; TC++) {
+		for(int TC = 1 ; TC <= T; TC++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int B = Integer.parseInt(st.nextToken());
@@ -25,7 +25,7 @@ public class p1486 {
 			}
 			min = Integer.MAX_VALUE;
 			DFS(0,0,N,B,length);
-			System.out.println(min);
+			System.out.printf("#%d %d\n", TC, min - B);
 		}
 
 	}
