@@ -7,6 +7,9 @@ import java.util.StringTokenizer;
 
 public class p4014 {
 	static int ans = 0;
+	//좌우 상하.
+	static int dy[] = { 0, 0,-1, 1};
+	static int dx[] = {-1, 1, 0, 0};
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -43,6 +46,7 @@ public class p4014 {
 	}
 	private static void rowSearch(int[][] map, int N, int X,boolean install[][]) {
 		for(int i = 0; i < N; i++) {
+			//한 줄씩
 			if(isCanRowRoad(map[i],N,X,install[i]))
 				ans++;
 		}
@@ -50,6 +54,7 @@ public class p4014 {
 	
 	private static void colSearch(int[][] map, int N, int X,boolean install[][]) {
 		for(int i = 0; i < N; i++) {
+			//한 열씩
 			if(isCanColRoad(map,i,N,X,install))
 				ans++;
 		}
@@ -187,9 +192,7 @@ public class p4014 {
 		}
 		return true;
 	}
-	//좌우 상하.
-	static int dy[] = { 0, 0,-1, 1};
-	static int dx[] = {-1, 1, 0, 0};
+
 
 	private static boolean isCan(int next, int n) {
 		return 0 <= next && next < n;
