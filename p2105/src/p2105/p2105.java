@@ -41,7 +41,7 @@ public class p2105 {
 					// 시작 지점은 먹었음
 					eatCheck[map[startY][startX]] = true;
 					// DFS출발!!
-					dessertTour(startY, startX, startY, startX, startY, startX, 0, eatCheck, 0);
+					dessertTour(startY, startX, startY, startX, 0, 0, eatCheck);
 					// 먹은 디저트 초기화
 					Arrays.fill(eatCheck, false);
 				}
@@ -56,35 +56,24 @@ public class p2105 {
 			int startX, 
 			int y, 
 			int x, 
-			int pastY, 
-			int pastX, 
 			int pastDirection,
-			boolean eatCheck[],
-			int eatCount
+			int eatCount,
+			boolean eatCheck[]
 	) {
-		for (int direction = pastDirection; direction < 4; direction++) {
+		for (int direction = pastDirection,maxDriection = pastDirection + 2; direction < maxDriection; direction++) {
+			if(direction >= 4) break;
 			int nextY = y + dy[direction];
 			int nextX = x + dx[direction];
-			// 갈 수 있는 공간인가?
-			if (!isCan(nextY, nextX)) {
-				// 갈 수 없다면 다음 방향
-				continue;
-			}
-			// 이전 카페로 돌아가는 가면
-			if (nextY == pastY && nextX == pastX) {
-				// 이동하지 못한 경우이므로
-				continue;
-			}
-			// 만약 시작점으로 돌아온 경우
-			if (nextY == startY && nextX == startX) {
+			//사각형을 그려서 원점으로 돌아왔는가?
+			if (nextY == startY && nextX == startX && eatCount >= 3) {
 				// 디저트를 먹은 최대 개수 갱신
 				// +1 하는 이유는 시작지점 카운트를 하지 않았기 때문에.
 				answer = Math.max(answer, eatCount + 1);
 				//이번 시작지점에서 최대수를 찾았으므로 끝
 				return;
 			}
-			// 이동도 가능하고 돌아가지 않았지만 먹은 디저트 인가?
-			if (eatCheck[map[nextY][nextX]]) {
+			// 이동이 불 가능하거나 먹은 디저트 인가?
+			if( 0 > nextY || nextY >= N || 0 > nextX || nextX >= N || eatCheck[map[nextY][nextX]]) {
 				// 먹은 디저트라면 돌아가..
 				continue;
 			}
@@ -92,14 +81,9 @@ public class p2105 {
 			// 먹을 수 있는 디저트 이므로 진행
 			eatCheck[map[nextY][nextX]] = true;
 			// 다음 디저트를 위한 여행
- 			dessertTour(startY, startX, nextY, nextX, y, x, pastDirection, eatCheck, eatCount + 1);
+ 			dessertTour(startY, startX, nextY, nextX, direction, eatCount + 1, eatCheck);
 			// 돌아가는 경우 이므로 디저트 먹은 체크 해제
 			eatCheck[map[nextY][nextX]] = false;
 		}
 	}
-
-	private static boolean isCan(int nextY, int nextX) {
-		return 0 < nextY && nextY < N && 0 <= nextX && nextX < N;
-	}
-
 }
