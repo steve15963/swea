@@ -9,7 +9,7 @@ public class p2105 {
 	static int answer = -1;
 	static int N = 0;
 	static int map[][];
-	// ÇÏ¿ì, ÇÏÁÂ, »óÁÂ, »ó¿ì
+	// í•˜ìš°, í•˜ì¢Œ, ìƒì¢Œ, ìƒìš°
 	static int dy[] = { 1, 1, -1, -1 };
 	static int dx[] = { 1, -1, -1, 1 };
 
@@ -17,14 +17,14 @@ public class p2105 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = null;
 		int T = Integer.parseInt(br.readLine());
-		// Å×ÄÉ ¸¸Å­
+		// í…Œì¼€ ë§Œí¼
 		for (int TC = 1; TC <= T; TC++) {
 			answer = -1;
 			N = Integer.parseInt(br.readLine());
 			map = new int[N][N];
-			// µğÀúÆ® Ã¼Å©¿ë
+			// ë””ì €íŠ¸ ì²´í¬ìš©
 			boolean eatCheck[] = new boolean[101];
-			// ¸Ê ÀÔ·Â
+			// ë§µ ì…ë ¥
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine());
 				for (int j = 0; j < N; j++) {
@@ -32,17 +32,17 @@ public class p2105 {
 				}
 			}
 
-			// ½ÃÀÛÁöÁ¡ ¼±ÅÃ
-			//  N - 2¾Æ·¡ ³ëµå°¡ ÃÖ¼Ò 2°³°¡ ÀÖÀ¸¹Ç·Î.
+			// ì‹œì‘ì§€ì  ì„ íƒ
+			//  N - 2ì•„ë˜ ë…¸ë“œê°€ ìµœì†Œ 2ê°œê°€ ìˆìœ¼ë¯€ë¡œ.
 			for (int startY = 0; startY < N - 2; startY++) {
-				// startX = 1´Â ¿ŞÂÊ¿¡ ºÙ¾î ÀÖÀ¸¸é ¿ŞÂÊ ³ëµå°¡ ¾øÀ¸¹Ç·Î
-				// N - 1 ¿À¸¥ÂÊ¿¡ ºÙ¾î ÀÖÀ¸¸é ¿À¸¥ÂÊ ³ëµå°¡ ¾øÀ¸¹Ç·Î.
+				// startX = 1ëŠ” ì™¼ìª½ì— ë¶™ì–´ ìˆìœ¼ë©´ ì™¼ìª½ ë…¸ë“œê°€ ì—†ìœ¼ë¯€ë¡œ
+				// N - 1 ì˜¤ë¥¸ìª½ì— ë¶™ì–´ ìˆìœ¼ë©´ ì˜¤ë¥¸ìª½ ë…¸ë“œê°€ ì—†ìœ¼ë¯€ë¡œ.
 				for (int startX = 1; startX < N - 1; startX++) {
-					// ½ÃÀÛ ÁöÁ¡Àº ¸Ô¾úÀ½
+					// ì‹œì‘ ì§€ì ì€ ë¨¹ì—ˆìŒ
 					eatCheck[map[startY][startX]] = true;
-					// DFSÃâ¹ß!!
+					// DFSì¶œë°œ!!
 					dessertTour(startY, startX, startY, startX, startY, startX, 0, eatCheck, 0);
-					// ¸ÔÀº µğÀúÆ® ÃÊ±âÈ­
+					// ë¨¹ì€ ë””ì €íŠ¸ ì´ˆê¸°í™”
 					Arrays.fill(eatCheck, false);
 				}
 			}
@@ -65,35 +65,35 @@ public class p2105 {
 		for (int direction = pastDirection; direction < 4; direction++) {
 			int nextY = y + dy[direction];
 			int nextX = x + dx[direction];
-			// °¥ ¼ö ÀÖ´Â °ø°£ÀÎ°¡?
+			// ê°ˆ ìˆ˜ ìˆëŠ” ê³µê°„ì¸ê°€?
 			if (!isCan(nextY, nextX)) {
-				// °¥ ¼ö ¾ø´Ù¸é ´ÙÀ½ ¹æÇâ
+				// ê°ˆ ìˆ˜ ì—†ë‹¤ë©´ ë‹¤ìŒ ë°©í–¥
 				continue;
 			}
-			// ÀÌÀü Ä«Æä·Î µ¹¾Æ°¡´Â °¡¸é
+			// ì´ì „ ì¹´í˜ë¡œ ëŒì•„ê°€ëŠ” ê°€ë©´
 			if (nextY == pastY && nextX == pastX) {
-				// ÀÌµ¿ÇÏÁö ¸øÇÑ °æ¿ìÀÌ¹Ç·Î
+				// ì´ë™í•˜ì§€ ëª»í•œ ê²½ìš°ì´ë¯€ë¡œ
 				continue;
 			}
-			// ¸¸¾à ½ÃÀÛÁ¡À¸·Î µ¹¾Æ¿Â °æ¿ì
+			// ë§Œì•½ ì‹œì‘ì ìœ¼ë¡œ ëŒì•„ì˜¨ ê²½ìš°
 			if (nextY == startY && nextX == startX) {
-				// µğÀúÆ®¸¦ ¸ÔÀº ÃÖ´ë °³¼ö °»½Å
-				// +1 ÇÏ´Â ÀÌÀ¯´Â ½ÃÀÛÁöÁ¡ Ä«¿îÆ®¸¦ ÇÏÁö ¾Ê¾Ò±â ¶§¹®¿¡.
+				// ë””ì €íŠ¸ë¥¼ ë¨¹ì€ ìµœëŒ€ ê°œìˆ˜ ê°±ì‹ 
+				// +1 í•˜ëŠ” ì´ìœ ëŠ” ì‹œì‘ì§€ì  ì¹´ìš´íŠ¸ë¥¼ í•˜ì§€ ì•Šì•˜ê¸° ë•Œë¬¸ì—.
 				answer = Math.max(answer, eatCount + 1);
-				//ÀÌ¹ø ½ÃÀÛÁöÁ¡¿¡¼­ ÃÖ´ë¼ö¸¦ Ã£¾ÒÀ¸¹Ç·Î ³¡
+				//ì´ë²ˆ ì‹œì‘ì§€ì ì—ì„œ ìµœëŒ€ìˆ˜ë¥¼ ì°¾ì•˜ìœ¼ë¯€ë¡œ ë
 				return;
 			}
-			// ÀÌµ¿µµ °¡´ÉÇÏ°í µ¹¾Æ°¡Áö ¾Ê¾ÒÁö¸¸ ¸ÔÀº µğÀúÆ® ÀÎ°¡?
+			// ì´ë™ë„ ê°€ëŠ¥í•˜ê³  ëŒì•„ê°€ì§€ ì•Šì•˜ì§€ë§Œ ë¨¹ì€ ë””ì €íŠ¸ ì¸ê°€?
 			if (eatCheck[map[nextY][nextX]]) {
-				// ¸ÔÀº µğÀúÆ®¶ó¸é µ¹¾Æ°¡..
+				// ë¨¹ì€ ë””ì €íŠ¸ë¼ë©´ ëŒì•„ê°€..
 				continue;
 			}
-			// À§ °æ¿ì¿¡ ¸ğµÎ ÇØ´çÇÏÁö ¾Ê´Â´Ù¸é.
-			// ¸ÔÀ» ¼ö ÀÖ´Â µğÀúÆ® ÀÌ¹Ç·Î ÁøÇà
+			// ìœ„ ê²½ìš°ì— ëª¨ë‘ í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´.
+			// ë¨¹ì„ ìˆ˜ ìˆëŠ” ë””ì €íŠ¸ ì´ë¯€ë¡œ ì§„í–‰
 			eatCheck[map[nextY][nextX]] = true;
-			// ´ÙÀ½ µğÀúÆ®¸¦ À§ÇÑ ¿©Çà
+			// ë‹¤ìŒ ë””ì €íŠ¸ë¥¼ ìœ„í•œ ì—¬í–‰
  			dessertTour(startY, startX, nextY, nextX, y, x, pastDirection, eatCheck, eatCount + 1);
-			// µ¹¾Æ°¡´Â °æ¿ì ÀÌ¹Ç·Î µğÀúÆ® ¸ÔÀº Ã¼Å© ÇØÁ¦
+			// ëŒì•„ê°€ëŠ” ê²½ìš° ì´ë¯€ë¡œ ë””ì €íŠ¸ ë¨¹ì€ ì²´í¬ í•´ì œ
 			eatCheck[map[nextY][nextX]] = false;
 		}
 	}
